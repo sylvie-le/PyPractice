@@ -1,0 +1,5 @@
+def fibonacci(n = 10):
+    a1, a2 = 0, 1
+    for i in range(n):
+        yield a1
+        a1, a2 = a2, a2 + a1
