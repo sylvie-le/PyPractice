@@ -1,0 +1,37 @@
+def break_word(word_list): ##create a list where each item is a single word
+    new_list = []
+    for i in word_list:
+        k = list(i.split())
+        new_list.extend(k)
+    return new_list
+
+def count_freq(new_list): ##receives a list containing only single words, returns a dictionary containing the frequency of each word
+    unique_list = list(set(new_list))
+    frequency_list = []
+    freq_dict = {}
+    
+    for unique_word in unique_list:
+        count = 0
+        for word in new_list:
+            if word == unique_word:
+                new_list.remove(word)
+                count += 1
+        frequency_list.append(count)
+    
+    freq_dict = dict(zip(unique_list, frequency_list))
+    
+    return freq_dict
+
+def get_common_word(word_list): ##returns the list of words that appear at least three times
+    
+    separate_word_list = break_word(word_list)
+    
+    word_freq_dict = count_freq(separate_word_list)
+    
+    common_word_list = []
+    
+    for word in list(word_freq_dict.keys()):
+        if word_freq_dict[word] >= 3:
+            common_word_list.append(word)
+    
+    print(common_word_list)
