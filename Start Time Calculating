@@ -1,0 +1,99 @@
+##requires the user to input speaker name, start time, speech duration, then calculate the time of the speech
+##data validation included
+##name input is not case sensitive
+##time format output is in 24-hour value
+##use case of exceeding to following days included
+
+def reverse_name(name): ##change the order of the name, surname goes first, first name goes last
+    word_list = name.split()
+    first_name = word_list[0]
+    last_name = word_list[-1]
+    
+    word_list[0] = last_name
+    word_list[-1] = first_name
+    
+    return ' '.join(word_list)
+
+def input_speaker_name(speaker_list):
+    name = 'a'
+    while name not in speaker_list:
+        name = input('Type the name of the speaker you want to search: ').title()
+        if name not in speaker_list:
+            print('There is no speaker with that name on the list. Please input speaker name again.')
+    
+    return name
+
+def reverse_list(speaker_list):
+    new_list = []
+    for i in speaker_list:
+        new_name = reverse_name(i)
+        new_list.append(new_name)
+        
+    return new_list
+        
+        
+def input_time(): ##user input the start time of the first speech
+    hour = 'h'
+    minute = 'm'
+    while hour not in range(24):
+        hour = int(input('Enter the start hour in the 24-hour hh format: '))
+        if hour not in range(24):
+            print('Invalid hour value. You should enter hour in 24-hour hh format.')
+    
+    while minute not in range(60):
+        minute = int(input('Enter the start minute in the mm format: '))
+        if minute not in range(60):
+            print('Invalid minute value. You should enter minute in mm format.')
+    
+    return hour, minute
+
+def calc_duration(minutes):
+    days = int(minutes // (60 * 24))
+    hours = int((minutes % (60 * 24)) // 60)
+    mins = int(minutes % 60)
+    
+    return days, hours, mins
+
+def speech_duration(): ##user input speech duration in minutes, duration does not exceed one hour
+    num = 'k'
+    while num not in range(60):
+        num = int(input('Enter the duration of the speech in minutes in the mm format: '))
+        if num not in range(60):
+            print('Invalid duration value. You should enter the number of minutes in mm format and not exceed 60.')   
+    return num
+    
+
+def speech_time(speaker_list):
+    
+    #user input speaker name, case insensitive
+    speaker_name = input_speaker_name(speaker_list)
+    
+    new_speaker_list = reverse_list(speaker_list)
+        
+    new_speaker_list.sort()
+        
+    name_index = new_speaker_list.index(reverse_name(speaker_name))
+    
+    ##user input duration of the speeches
+    duration = speech_duration()
+        
+    #user input start hour of the first speech
+    start_hour, start_min = input_time()
+    
+    waiting_time = name_index * duration ##calculate the minutes a speaker wait until his/her turn
+    
+    wait_day, wait_hour, wait_min = calc_duration(waiting_time) ##convert the waiting time into days, hours, mins
+    
+    ##calculate speech time
+    start_min += wait_min
+    start_hour += wait_hour
+    
+    if start_min > 60: ##add to hour if minutes exceed 60 and calculate the new minute value
+        start_hour += 1
+        start_min -= 60
+        
+    if start_hour > 24: ##add to hour if hours exceed 24 and calculate the new hour value
+        wait_day += 1
+        start_hour -= 24
+        
+    print(f'{speaker_name} will have a speech at {start_hour}:{start_min} in {wait_day} days. Time is in 24-hour format.')
