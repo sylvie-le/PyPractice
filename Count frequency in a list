@@ -1,0 +1,10 @@
+def count_unique(list_input): ##function to count unique numbers frequency in a list
+    unique_list = list(set(list_input)) ##remove duplicates in the list
+
+    for unique_number in unique_list: ##go through the list to compare with unique number and count
+        count = 0
+        for item in list_input:
+            if item == unique_number:
+                list_input.remove(item)
+                count += 1
+        print(f"There are {count} occurences of {unique_number} in the list.")
