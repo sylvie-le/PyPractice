@@ -1,0 +1,41 @@
+##define the number of rows and number of columns for the board
+number_of_row = 10
+number_of_column = 19
+
+
+def print_row(y, item): ##print a row with y number of columns
+    row_list = [] ##the list of items that make up a row
+    for i in range(y):
+        row_list.append(item)
+    return row_list
+
+
+def add_pattern(row_number, row_list, item): ##print pattern of item on a certain row, row list contains all items of the row, return a new row list  
+    #calculate position of the item to add pattern
+    start = int((len(row_list) - 1) / 2 - row_number + 1)
+    end = int((len(row_list) - 1) / 2 + row_number)
+    if row_number != 0:
+        for i in range(start, end):
+            row_list[i] = item
+    return row_list
+
+
+def print_board(x, y): ##print a board with x rows and y columns, with pattern
+    
+    for row in range(x): ##print each row in the table, without pattern
+        if row % 2 == 0:
+            temp_row = print_row(y, '*')
+            
+            temp_row = add_pattern(row, temp_row, '-')
+            
+            print(''.join(temp_row))
+            temp_row.clear()
+        else:
+            temp_row = print_row(y, '-')
+            
+            temp_row = add_pattern(row, temp_row, '*')
+            
+            print(''.join(temp_row))
+            temp_row.clear()
+
+print_board(number_of_row, number_of_column) ##row is 10, column is 19
