@@ -1,0 +1,18 @@
+def count_specific_unique(item, list_input): ##return the frequency of a number that user inputs
+    count = 0
+    for i in list_input:
+        if item == i:
+            list_input.remove(i)
+            count += 1
+    return count
+
+def first_three_time(list_input): #tell which item appears for the first three times from the start to the end of the list
+    freq = 0
+    
+    for i in list_input:
+        freq = count_specific_unique(i, list_input)
+        if freq == 3:
+            print(f"The first item to appear 3 times is {i}.")
+            break
+        else:
+            continue
