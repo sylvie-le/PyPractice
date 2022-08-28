@@ -1,0 +1,7 @@
+def geometric_prog(first_item, ratio_value, no_of_items):
+    a = []
+    for i in range(no_of_items):
+        a.append(first_item * (ratio_value ** i))
+    return a
+
+geometric_prog(first_term, ratio, 5) ##return geometric progression list with the predefined number of items in list
