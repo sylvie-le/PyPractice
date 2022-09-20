@@ -1,0 +1,15 @@
+#Iterator to return characters from a list of strings
+def char_iter(string):
+    step = 0
+    while step < len(string):
+        char = string[::][step]
+        yield char
+        step += 1
+        
+def lst_iter(stringlst):
+    step = 0
+    while step < len(stringlst):
+        string = stringlst[step]
+        for i in char_iter(string):
+            yield i
+        step += 1
