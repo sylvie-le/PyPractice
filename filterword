@@ -1,0 +1,22 @@
+#A class to take a string and a list of words and iterate through the string's words. Skip words if they are repeated or in the list.
+class forbiddenWord:
+    def __init__(self, string, forbidList):
+        self.strg = string.split()
+        self.lst = forbidList
+        
+    def __iter__(self):
+        self.current = 0
+        self.empty = []
+        return self
+    
+    def __next__(self):
+        if self.current < len(self.strg):
+            a = self.strg[self.current]
+            self.current += 1
+            if a not in self.lst and a not in self.empty:
+                self.empty.append(a)
+                return a
+            else:
+                pass
+        else:
+            raise StopIteration
